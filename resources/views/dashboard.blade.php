@@ -80,6 +80,7 @@ Invite User
 <th>Short URL</th>
 <th>Original URL</th>
 <th>Created By</th>
+<th>Company</th>
 <th>Action</th>
 </tr>
 
@@ -94,28 +95,19 @@ Invite User
 </td>
 
 <td>{{ $url->original_url }}</td>
-
-<td>{{ $url->user_id }}</td>
-
-<td>
+<td>{{ $url->user->name ?? '' }}</td>
+<td>{{ $url->user->company->name ?? '' }}</td>
+<td> 
 
 <button class="btn btn-sm btn-primary"
 onclick="navigator.clipboard.writeText('{{ url('/'.$url->short_code) }}')">
-
 Copy
-
 </button>
-
 </td>
-
 </tr>
-
 @endforeach
 
 </table>
-
 </div>
-
 </div>
-
 </x-app-layout>

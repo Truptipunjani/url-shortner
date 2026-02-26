@@ -20,14 +20,19 @@ class User extends Authenticatable
 
     public function company(){
         return $this->belongsTo(Company::class);
+        return $this->belongsTo(\App\Models\Company::class,'company_id');
+
     }
     public function urls(){
         return $this->hasMany(ShortUrl::class);
     }
+    
     protected $fillable = [
         'name',
         'email',
         'password',
+        'role',
+        'company_id'
     ];
 
     /**

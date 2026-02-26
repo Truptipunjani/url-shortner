@@ -21,7 +21,7 @@ class MemberController extends Controller
         $authUser = auth()->user();
 
 
-        // =========================
+        // ========================
         // SUPERADMIN LOGIC
         // =========================
         if($authUser->role == 'SuperAdmin')
@@ -40,22 +40,34 @@ class MemberController extends Controller
                 'company_id' => $company->id
             ]);
         }
-
-
-        // =========================
-        // ADMIN LOGIC
-        // =========================
+        // MY ADMIN TEST LOGIC
+        // elseif($authUser->role == 'Admin')
+        // {
+        //     User::create([
+        //         'name' => $request->name,
+        //         'email' => $request->email,
+        //         'password' => Hash::make('123456'),
+        //         'role' => $request->role, // Admin or Member
+        //         'company_id' => $authUser->company_id
+        //     ]);
+        // }
         elseif($authUser->role == 'Admin')
         {
+
+            if(!$authUser->company_id)
+            {
+                return redirect('/dashboard')
+                ->with('error','Admin has no company');
+            }
+
             User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make('123456'),
-                'role' => $request->role, // Admin or Member
+                'role' => $request->role, // Admin and Member
                 'company_id' => $authUser->company_id
             ]);
         }
-
 
         // =========================
         // MEMBER BLOCKED

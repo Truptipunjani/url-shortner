@@ -11,5 +11,7 @@ class ShortUrl extends Model
     protected $fillable=['company_id','user_id','original_url','short_code'];
     public function user(){
         return $this->belongsTo(User::class);
+        return $this->belongsTo(\App\Models\User::class,'user_id');
     }
+
 }
